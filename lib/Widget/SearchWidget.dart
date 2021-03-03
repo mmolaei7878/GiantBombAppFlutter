@@ -1,4 +1,5 @@
 import 'package:GiantBombAppFlutter/Repository/GameResponse.dart';
+import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/SearchBloc.dart';
 
@@ -47,7 +48,11 @@ class SearchWidget extends SearchDelegate {
               itemBuilder: (ctx, i) => Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushNamed(
+                        DescriptionScreen.routeNamed,
+                        arguments: snapShot.data.gameList[i]);
+                  },
                   leading: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
