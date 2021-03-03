@@ -27,11 +27,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xff131418),
@@ -52,12 +47,22 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                   number_of_user_reviews:
                       foundedgame.number_of_user_reviews.toString(),
                 ),
-                MiddleDescriptionScreen(),
+                MiddleDescriptionScreen(
+                  deck: foundedgame.deck,
+                  description: foundedgame.description,
+                  site: foundedgame.site_detail_url,
+                ),
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, i) {
-                      return Image.network(
-                          snapShot.data.screenShots[i].screen_url);
+                      return Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                              snapShot.data.screenShots[i].screen_url),
+                        ),
+                      );
                     },
                     childCount: snapShot.data.screenShots.length,
                   ),

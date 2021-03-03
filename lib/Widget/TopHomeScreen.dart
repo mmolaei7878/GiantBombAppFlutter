@@ -6,7 +6,7 @@ class TopHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mqh = MediaQuery.of(context).size.height;
     return SliverAppBar(
-      expandedHeight: mqh / 2,
+      expandedHeight: 800,
       elevation: 50,
       backgroundColor: Color(0xff131418),
       flexibleSpace: FlexibleSpaceBar(
