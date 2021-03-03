@@ -1,3 +1,4 @@
+import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/GameBloc.dart';
 import '../Repository/GameResponse.dart';
@@ -54,12 +55,20 @@ class BottomHomeScreen extends StatelessWidget {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(15),
-                                child: Image.network(
-                                  snapShot.data.gameList[index].image
-                                      .screen_large_url,
-                                  height: 180,
-                                  width: 150,
-                                  fit: BoxFit.cover,
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                      DescriptionScreen.routeNamed,
+                                      arguments: snapShot.data.gameList[index],
+                                    );
+                                  },
+                                  child: Image.network(
+                                    snapShot.data.gameList[index].image
+                                        .screen_large_url,
+                                    height: 180,
+                                    width: 150,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                               SizedBox(

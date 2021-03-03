@@ -14,16 +14,9 @@ class SearchBloc {
   }
 
   searchGames(String query) async {
-    _searchSubjectBehavior.debounce(
-      (_) => TimerStream(
-        true,
-        Duration(milliseconds: 500),
-      ).switchMap((respo) async* {
-        final response = await _repository.search(query);
-        yield response;
-        _searchSubjectBehavior.sink.add(response);
-      }),
-    );
+    GameResponse response = await _repository.search(query);
+
+    _searchSubjectBehavior.sink.add(response);
   }
 }
 

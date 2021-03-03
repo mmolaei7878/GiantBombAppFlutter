@@ -1,3 +1,4 @@
+import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
 import 'package:flutter/material.dart';
 import 'Screens/HomeScreen.dart';
 
@@ -16,6 +17,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomeScreen(),
+      routes: {
+        DescriptionScreen.routeNamed: (ctx) => DescriptionScreen(),
+      },
     );
   }
 }

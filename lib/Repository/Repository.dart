@@ -19,6 +19,7 @@ class Repository {
         'https://www.giantbomb.com/api/search/?api_key=$apiKey&format=json&query=$query';
     final response = await http.get(url);
     final result = jsonDecode(response.body)['results'];
+    print(result);
     return GameResponse.fromJson(result);
   }
 }
