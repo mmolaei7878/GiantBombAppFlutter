@@ -40,12 +40,12 @@ Map<String, dynamic> _$GameModelToJson(GameModel instance) => <String, dynamic>{
 
 Image _$ImageFromJson(Map<String, dynamic> json) {
   return Image(
-    json['screen_large_url'] as String,
+    json['original_url'] as String,
   );
 }
 
 Map<String, dynamic> _$ImageToJson(Image instance) => <String, dynamic>{
-      'screen_large_url': instance.screen_large_url,
+      'original_url': instance.screen_large_url,
     };
 
 ImageTags _$ImageTagsFromJson(Map<String, dynamic> json) {

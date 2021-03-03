@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Model/gm.dart' as model;
+import '../Widget/DescriptionScreenTopWidget.dart';
 
 class DescriptionScreen extends StatefulWidget {
   static const routeNamed = '/DescriptionScreen';
@@ -16,16 +17,21 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     final foundedgame =
         ModalRoute.of(context).settings.arguments as model.GameModel;
     return Scaffold(
+      backgroundColor: Color(0xff131418),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
-            expandedHeight: mqh / 2,
-            backgroundColor: Colors.black,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Image.network(
-                foundedgame.image.screen_large_url,
-                fit: BoxFit.contain,
-              ),
+          DescriptionScreenTopWidget(
+            name: foundedgame.name,
+            date_last_updated: foundedgame.date_last_updated,
+            image: foundedgame.image.screen_large_url,
+            number_of_user_reviews:
+                foundedgame.number_of_user_reviews.toString(),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, i) => Image.network(
+                  'https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png'),
+              childCount: 6,
             ),
           ),
         ],

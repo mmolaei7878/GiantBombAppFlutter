@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import '../Model/gm.dart';
 import 'package:GiantBombAppFlutter/Repository/GameResponse.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,7 +8,7 @@ class Repository {
 
   Future<GameResponse> getGames() async {
     final url =
-        'https://www.giantbomb.com/api/games/?api_key=$apiKey&format=json&limit=30&platforms=20&field_list=id,name,image,deck,date_last_updated,description,image_tags,guid,number_of_user_reviews,site_detail_url';
+        'https://www.giantbomb.com/api/games/?api_key=$apiKey&format=json&limit=30&filter=platforms:146&field_list=id,name,image,deck,date_last_updated,description,image_tags,guid,number_of_user_reviews,site_detail_url';
     final response = await http.get(url);
     final result = jsonDecode(response.body)['results'];
     return GameResponse.fromJson(result);
@@ -21,6 +21,14 @@ class Repository {
     final result = jsonDecode(response.body)['results'];
     print(result);
     return GameResponse.fromJson(result);
+  }
+
+  Future<ImageTags> getScreenShots(String guid) async {
+    final url =
+        'https://www.giantbomb.com/api/images/$guid/?api_key=$apiKey&format=json&filter=image_tag:Screenshots';
+    final response = await http.get(url);
+    final result = jsonDecode(response.body);
+    return ImageTags.fromJson(result);
   }
 }
 
