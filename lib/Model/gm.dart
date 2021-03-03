@@ -13,7 +13,6 @@ class GameModel {
   final int number_of_user_reviews;
   final String site_detail_url;
   final Image image;
-  final ImageTags imageTags;
   GameModel(
       {this.date_last_updated,
       this.deck,
@@ -21,7 +20,6 @@ class GameModel {
       this.guid,
       this.id,
       this.image,
-      this.imageTags,
       this.name,
       this.number_of_user_reviews,
       this.site_detail_url});
@@ -36,24 +34,4 @@ class Image {
   Image(this.screen_large_url);
   factory Image.fromJson(Map<String, dynamic> json) => _$ImageFromJson(json);
   Map<String, dynamic> toJson() => _$ImageToJson(this);
-}
-
-@JsonSerializable()
-class ImageTags {
-  final List<ImageTagsModel> image_tags;
-  ImageTags(this.image_tags);
-  factory ImageTags.fromJson(Map<String, dynamic> json) =>
-      _$ImageTagsFromJson(json);
-  Map<String, dynamic> toJson() => _$ImageTagsToJson(this);
-}
-
-@JsonSerializable()
-class ImageTagsModel {
-  final String api_detail_url;
-  final String name;
-  final int total;
-  ImageTagsModel(this.api_detail_url, this.name, this.total);
-  factory ImageTagsModel.fromJson(Map<String, dynamic> json) =>
-      _$ImageTagsModelFromJson(json);
-  Map<String, dynamic> toJson() => _$ImageTagsModelToJson(this);
 }

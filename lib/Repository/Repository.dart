@@ -1,5 +1,5 @@
 import 'dart:convert';
-import '../Model/gm.dart';
+import '../Model/ScreenResponse.dart';
 import 'package:GiantBombAppFlutter/Repository/GameResponse.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,12 +23,12 @@ class Repository {
     return GameResponse.fromJson(result);
   }
 
-  Future<ImageTags> getScreenShots(String guid) async {
+  Future<ScreenResponse> getScreenShots(String guid) async {
     final url =
-        'https://www.giantbomb.com/api/images/$guid/?api_key=$apiKey&format=json&filter=image_tag:Screenshots';
+        'https://www.giantbomb.com/api/images/$guid/?api_key=$apiKey&format=json&limit=20&filter=image_tag:Screenshots';
     final response = await http.get(url);
-    final result = jsonDecode(response.body);
-    return ImageTags.fromJson(result);
+    final result = jsonDecode(response.body)['results'];
+    return ScreenResponse.fromJson(result);
   }
 }
 
