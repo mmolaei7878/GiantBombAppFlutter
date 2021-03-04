@@ -1,20 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 
 enum ModeTheme { Dark, Light }
 
 class ThemeBloc {
-  /* Map<String, dynamic> themeMode = {
-    'colorsLightMode': [
-      Color(0xff8764B8),
-      Color(0xff000000),
-    ],
-    'colorsDarkMode': [
-      Color(0xff8764B8),
-      Color(0xff000000),
-    ],
-  }; */
-
   BehaviorSubject<ModeTheme> _colorSubject = BehaviorSubject<ModeTheme>();
 
   Stream<ModeTheme> get colorStream => _colorSubject.stream;

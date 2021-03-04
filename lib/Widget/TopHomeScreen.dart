@@ -18,30 +18,36 @@ class TopHomeScreen extends StatelessWidget {
             SizedBox(
               height: 150,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                      color: Colors.pink,
-                      iconSize: 30,
-                      icon: Icon(Icons.logout),
-                      onPressed: () {
-                        authentication.logOut();
-                      }),
-                  Spacer(flex: 2),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 18),
+                    child: IconButton(
+                        color: Theme.of(context).accentColor,
+                        iconSize: 37,
+                        icon: Icon(Icons.logout),
+                        onPressed: () {
+                          authentication.logOut();
+                        }),
+                  ),
                   StreamBuilder(
                       initialData: themeBloc.defaultValue,
                       stream: themeBloc.colorStream,
                       builder: (ctx, snapShot) {
-                        return CupertinoSwitch(
-                          activeColor: Colors.purple[800],
-                          trackColor: Colors.black,
-                          value: snapShot.data.index == 0 ? true : false,
-                          onChanged: (value) {
-                            if (!value) {
-                              themeBloc.setColor(0);
-                            } else {
-                              themeBloc.setColor(1);
-                            }
-                          },
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 18),
+                          child: CupertinoSwitch(
+                            activeColor: Color(0xff332940),
+                            trackColor: Colors.white38,
+                            value: snapShot.data.index == 0 ? true : false,
+                            onChanged: (value) {
+                              if (!value) {
+                                themeBloc.setColor(0);
+                              } else {
+                                themeBloc.setColor(1);
+                              }
+                            },
+                          ),
                         );
                       })
                 ],
@@ -52,10 +58,10 @@ class TopHomeScreen extends StatelessWidget {
               margin: EdgeInsets.only(left: 30),
               child: Text(
                 'Browse the Games',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 55,
-                    fontWeight: FontWeight.bold),
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1
+                    .copyWith(fontSize: 55),
               ),
             ),
             SizedBox(
@@ -81,7 +87,7 @@ class TopHomeScreen extends StatelessWidget {
                       margin: EdgeInsets.all(4),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color(0xff8764B8),
+                        color: Theme.of(context).accentColor,
                       ),
                       child: Icon(
                         Icons.navigate_next_sharp,
@@ -99,7 +105,10 @@ class TopHomeScreen extends StatelessWidget {
                       ),
                     ),
                     contentPadding: EdgeInsets.only(left: 5),
-                    labelStyle: TextStyle(color: Colors.white),
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(fontSize: 15),
                     labelText: 'search for games'),
               ),
             )

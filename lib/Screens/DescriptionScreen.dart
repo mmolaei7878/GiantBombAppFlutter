@@ -29,13 +29,16 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff131418),
+      backgroundColor: Theme.of(context).primaryColor,
       body: StreamBuilder(
         stream: gameBloc.subjectScreenShot,
         builder: (ctx, AsyncSnapshot<ScreenResponse> snapShot) {
           if (!snapShot.hasData) {
             return Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                backgroundColor: Theme.of(context).primaryColor,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
             );
           } else {
             return (CustomScrollView(

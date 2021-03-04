@@ -17,7 +17,7 @@ class DescriptionScreenTopWidget extends StatelessWidget {
     final mqh = MediaQuery.of(context).size.height;
     return SliverAppBar(
       expandedHeight: mqh / 2,
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Stack(
           children: [

@@ -12,7 +12,7 @@ class MiddleDescriptionScreen extends StatelessWidget {
       delegate: SliverChildListDelegate(
         [
           Container(
-            color: Color(0xff131418),
+            color: Theme.of(context).primaryColor,
             child: Column(
               children: [
                 Container(

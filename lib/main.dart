@@ -20,15 +20,15 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: snapShot.data.index == 0
                 ? ThemeData(
-                    primaryColor: Color(0xff8764B8),
-                    accentColor: Color(0xff8764B8),
+                    primaryColor: Color(0xff121212),
+                    accentColor: Color(0xff1F1C24),
                     textTheme: TextTheme(
-                      bodyText1: TextStyle(color: Colors.white, fontSize: 18),
+                      bodyText1: TextStyle(color: Colors.white60, fontSize: 18),
                     ),
                   )
                 : ThemeData(
                     primaryColor: Color(0xff000000),
-                    accentColor: Color(0xff000000),
+                    accentColor: Color(0xff8764B8),
                     textTheme: TextTheme(
                       bodyText1: TextStyle(color: Colors.white, fontSize: 18),
                     ),
@@ -38,11 +38,10 @@ class MyApp extends StatelessWidget {
               builder: (ctx, AsyncSnapshot<String> snapShot) {
                 if (snapShot.data == null) {
                   return AuthScreen();
-                } else if (snapShot.data.length > 5) {
+                } else if (snapShot.data.length > 15) {
                   return HomeScreen();
                 } else {
                   authentication.tryAutoLogin();
-
                   return AuthScreen();
                 }
               },
