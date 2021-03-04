@@ -37,6 +37,7 @@ class MyApp extends StatelessWidget {
               stream: authentication.tokenStream,
               builder: (ctx, AsyncSnapshot<String> snapShot) {
                 if (snapShot.data == null) {
+                  authentication.tryAutoLogin();
                   return AuthScreen();
                 } else if (snapShot.data.length > 15) {
                   return HomeScreen();
