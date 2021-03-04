@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff131418),
+      backgroundColor: Theme.of(context).primaryColor,
       body: CustomScrollView(
         slivers: [
           TopHomeScreen(),

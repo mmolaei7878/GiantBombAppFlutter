@@ -9,6 +9,7 @@ class BottomHomeScreen extends StatelessWidget {
     final mqw = MediaQuery.of(context).size.width;
     final mqh = MediaQuery.of(context).size.height;
     return Container(
+      color: Theme.of(context).primaryColor,
       width: mqw,
       height: mqh,
       child: Stack(
@@ -24,7 +25,7 @@ class BottomHomeScreen extends StatelessWidget {
                   topLeft: Radius.circular(50),
                   topRight: Radius.circular(50),
                 ),
-                color: Color(0xff8764B8),
+                color: Theme.of(context).accentColor,
               ),
               child: StreamBuilder(
                 stream: gameBloc.subject,
@@ -36,7 +37,7 @@ class BottomHomeScreen extends StatelessWidget {
                       width: mqw,
                       height: 70,
                       child: CircularProgressIndicator(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Color(0xff212121),
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     );

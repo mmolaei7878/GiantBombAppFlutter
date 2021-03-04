@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'SearchWidget.dart';
 import '../BLoC/Authenthication.dart';
+import '../BLoC/ThemeBloc.dart';
 
 class TopHomeScreen extends StatelessWidget {
   @override
@@ -9,7 +11,7 @@ class TopHomeScreen extends StatelessWidget {
     return SliverAppBar(
       expandedHeight: mqh / 2,
       elevation: 50,
-      backgroundColor: Color(0xff131418),
+      backgroundColor: Theme.of(context).primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
           children: [
@@ -23,6 +25,24 @@ class TopHomeScreen extends StatelessWidget {
                       icon: Icon(Icons.logout),
                       onPressed: () {
                         authentication.logOut();
+                      }),
+                  Spacer(flex: 2),
+                  StreamBuilder(
+                      initialData: themeBloc.defaultValue,
+                      stream: themeBloc.colorStream,
+                      builder: (ctx, snapShot) {
+                        return CupertinoSwitch(
+                          activeColor: Colors.purple[800],
+                          trackColor: Colors.black,
+                          value: snapShot.data.index == 0 ? true : false,
+                          onChanged: (value) {
+                            if (!value) {
+                              themeBloc.setColor(0);
+                            } else {
+                              themeBloc.setColor(1);
+                            }
+                          },
+                        );
                       })
                 ],
               ),
