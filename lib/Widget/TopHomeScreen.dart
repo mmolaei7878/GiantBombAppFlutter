@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'SearchWidget.dart';
+import '../BLoC/Authenthication.dart';
 
 class TopHomeScreen extends StatelessWidget {
   @override
@@ -14,6 +15,17 @@ class TopHomeScreen extends StatelessWidget {
           children: [
             SizedBox(
               height: 150,
+              child: Row(
+                children: [
+                  IconButton(
+                      color: Colors.pink,
+                      iconSize: 30,
+                      icon: Icon(Icons.logout),
+                      onPressed: () {
+                        authentication.logOut();
+                      })
+                ],
+              ),
             ),
             Container(
               alignment: Alignment.centerLeft,

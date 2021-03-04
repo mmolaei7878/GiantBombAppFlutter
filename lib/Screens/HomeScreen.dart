@@ -1,3 +1,4 @@
+import 'package:GiantBombAppFlutter/BLoC/Authenthication.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/GameBloc.dart';
 import '../Widget/BottomHomeScreen.dart';

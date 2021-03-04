@@ -29,6 +29,8 @@ class MyApp extends StatelessWidget {
           } else if (snapShot.data.length > 5) {
             return HomeScreen();
           } else {
+            authentication.tryAutoLogin();
+
             return AuthScreen();
           }
         },

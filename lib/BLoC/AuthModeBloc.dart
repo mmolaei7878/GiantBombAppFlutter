@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:rxdart/rxdart.dart';
+
 enum AuthMode { Signup, Login, Nothing }
 
 class AuthModeBloc {
-  StreamController<AuthMode> _streamControllerAuthMode = StreamController();
+  PublishSubject<AuthMode> _streamControllerAuthMode = PublishSubject();
 
   Stream<AuthMode> get authModelStream => _streamControllerAuthMode.stream;
 
