@@ -8,7 +8,6 @@ class MiddleDescriptionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mqw = MediaQuery.of(context).size.width;
-    final mqh = MediaQuery.of(context).size.height;
     return SliverList(
       delegate: SliverChildListDelegate(
         [
