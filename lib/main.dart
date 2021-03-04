@@ -2,6 +2,7 @@ import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
 import 'package:flutter/material.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/AuthScreen.dart';
+import 'BLoC/Authenthication.dart';
 
 void main() {
   runApp(MyApp());
@@ -20,7 +21,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: AuthScreen(),
+      home: StreamBuilder(
+        stream: authentication.tokenStream,
+        builder: (ctx, AsyncSnapshot<String> snapShot) {
+          if (snapShot.data == null) {
+            return AuthScreen();
+          } else if (snapShot.data.length > 5) {
+            return HomeScreen();
+          } else {
+            return AuthScreen();
+          }
+        },
+      ),
       routes: {
         DescriptionScreen.routeNamed: (ctx) => DescriptionScreen(),
         AuthScreen.routeNamed: (ctx) => AuthScreen(),
