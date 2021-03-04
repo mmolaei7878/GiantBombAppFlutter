@@ -5,7 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Authentecation {
-  final fireBaseApiKey = 'AIzaSyAmPasN5Y_mDZsI4FhHidrTAFcO9xvpuZE';
+  final fireBaseApiKey = 'AIzaSyAmPasN5Y_mDZsI4TAFcO9xvpuZE';
   String _token;
   String _userId;
   DateTime _expiresIn;

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/AuthModeBloc.dart';
 import '../BLoC/Authenthication.dart';
@@ -13,6 +14,9 @@ class _AuthScreenState extends State<AuthScreen>
   AnimationController _controller;
   Animation<Offset> _offsetAnimation;
 
+  var loadingForSignUp = false;
+  var loadingForLogin = false;
+
   final GlobalKey<FormState> _signUpFormKey = GlobalKey();
   final GlobalKey<FormState> _loginFormKey = GlobalKey();
 
@@ -24,20 +28,58 @@ class _AuthScreenState extends State<AuthScreen>
   @override
   void dispose() {
     _controller.dispose();
-
     super.dispose();
   }
 
-  void login() {
+  Future<void> login() async {
+    setState(() {
+      loadingForLogin = true;
+    });
     _loginFormKey.currentState.save();
-    authentication.login(
-        email: _authData['email'], password: _authData["password"]);
+    try {
+      await authentication.login(
+          email: _authData['email'], password: _authData["password"]);
+    } catch (error) {
+      return errorWidget();
+    } finally {
+      setState(() {
+        loadingForLogin = false;
+      });
+    }
   }
 
-  void signUp() {
+  Future<void> signUp() async {
+    setState(() {
+      loadingForSignUp = true;
+    });
     _signUpFormKey.currentState.save();
-    authentication.signUp(
-        email: _authData['email'], password: _authData["password"]);
+    try {
+      await authentication.signUp(
+          email: _authData['email'], password: _authData["password"]);
+    } catch (error) {
+      return errorWidget();
+    } finally {
+      setState(() {
+        loadingForSignUp = false;
+      });
+    }
+  }
+
+  errorWidget() {
+    return showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) => CupertinoActionSheet(
+        message: const Text('An Error Occured Try Again'),
+        actions: [
+          CupertinoActionSheetAction(
+            child: const Text('Close'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -217,13 +259,15 @@ class _AuthScreenState extends State<AuthScreen>
                                     onPressed: () {
                                       signUp();
                                     },
-                                    child: Text(
-                                      'Sign up',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .copyWith(fontSize: 16),
-                                    ),
+                                    child: loadingForSignUp
+                                        ? CircularProgressIndicator()
+                                        : Text(
+                                            'Sign up',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                .copyWith(fontSize: 16),
+                                          ),
                                   ),
                                 ),
                                 Container(
@@ -313,13 +357,15 @@ class _AuthScreenState extends State<AuthScreen>
                                     onPressed: () {
                                       login();
                                     },
-                                    child: Text(
-                                      'Login',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .copyWith(fontSize: 16),
-                                    ),
+                                    child: loadingForLogin
+                                        ? CircularProgressIndicator()
+                                        : Text(
+                                            'Login',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                .copyWith(fontSize: 16),
+                                          ),
                                   ),
                                 ),
                                 Container(
