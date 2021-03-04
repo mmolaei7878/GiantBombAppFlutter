@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: snapShot.data.index == 0
                 ? ThemeData(
+                    errorColor: Colors.black,
                     primaryColor: Color(0xff121212),
                     accentColor: Color(0xff1F1C24),
                     textTheme: TextTheme(
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
                     ),
                   )
                 : ThemeData(
+                    errorColor: Colors.black,
                     primaryColor: Color(0xff000000),
                     accentColor: Color(0xff8764B8),
                     textTheme: TextTheme(

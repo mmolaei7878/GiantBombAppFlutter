@@ -17,6 +17,8 @@ class _AuthScreenState extends State<AuthScreen>
   var loadingForSignUp = false;
   var loadingForLogin = false;
 
+  final _confirmPasswordController = TextEditingController();
+
   final GlobalKey<FormState> _signUpFormKey = GlobalKey();
   final GlobalKey<FormState> _loginFormKey = GlobalKey();
 
@@ -32,6 +34,9 @@ class _AuthScreenState extends State<AuthScreen>
   }
 
   Future<void> login() async {
+    if (!_loginFormKey.currentState.validate()) {
+      return;
+    }
     setState(() {
       loadingForLogin = true;
     });
@@ -49,6 +54,9 @@ class _AuthScreenState extends State<AuthScreen>
   }
 
   Future<void> signUp() async {
+    if (!_signUpFormKey.currentState.validate()) {
+      return;
+    }
     setState(() {
       loadingForSignUp = true;
     });
@@ -190,6 +198,14 @@ class _AuthScreenState extends State<AuthScreen>
                                         bottomLeft: Radius.circular(25)),
                                   ),
                                   child: TextFormField(
+                                    validator: (value) {
+                                      if (!value.contains('@')) {
+                                        return 'Enter An Valid Email';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.emailAddress,
+                                    textInputAction: TextInputAction.next,
                                     onSaved: (value) {
                                       _authData['email'] = value;
                                     },
@@ -214,6 +230,16 @@ class _AuthScreenState extends State<AuthScreen>
                                         bottomRight: Radius.circular(25)),
                                   ),
                                   child: TextFormField(
+                                    controller: _confirmPasswordController,
+                                    validator: (value) {
+                                      if (value.length < 5) {
+                                        return 'Enter At Least 6 Charater';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    obscureText: true,
+                                    textInputAction: TextInputAction.next,
                                     onSaved: (value) {
                                       _authData['password'] = value;
                                     },
@@ -238,6 +264,16 @@ class _AuthScreenState extends State<AuthScreen>
                                         bottomLeft: Radius.circular(25)),
                                   ),
                                   child: TextFormField(
+                                    validator: (value) {
+                                      if (value !=
+                                          _confirmPasswordController.text) {
+                                        return 'Password Dose`nt Match';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    obscureText: true,
+                                    textInputAction: TextInputAction.done,
                                     decoration: InputDecoration(
                                         border: InputBorder.none,
                                         contentPadding:
@@ -309,6 +345,14 @@ class _AuthScreenState extends State<AuthScreen>
                                         bottomLeft: Radius.circular(25)),
                                   ),
                                   child: TextFormField(
+                                    validator: (value) {
+                                      if (!value.contains('@')) {
+                                        return 'Enter An Valid Email';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.emailAddress,
+                                    textInputAction: TextInputAction.next,
                                     onSaved: (value) {
                                       _authData['email'] = value;
                                     },
@@ -333,6 +377,15 @@ class _AuthScreenState extends State<AuthScreen>
                                         bottomRight: Radius.circular(25)),
                                   ),
                                   child: TextFormField(
+                                    validator: (value) {
+                                      if (value.length < 6) {
+                                        return 'Password is too short';
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    obscureText: true,
+                                    textInputAction: TextInputAction.done,
                                     onSaved: (value) {
                                       _authData['password'] = value;
                                     },
