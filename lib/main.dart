@@ -4,12 +4,9 @@ import 'Screens/HomeScreen.dart';
 import 'Screens/AuthScreen.dart';
 import 'BLoC/Authenthication.dart';
 import 'BLoC/ThemeBloc.dart' as theme;
-import 'package:provider/provider.dart';
-import 'Provider/FavoriteProviderdart.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (ctx) => FavoritesProvider(), child: MyApp()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

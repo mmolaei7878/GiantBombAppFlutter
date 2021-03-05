@@ -1,11 +1,11 @@
-import 'package:GiantBombAppFlutter/Provider/FavoriteProviderdart.dart';
 import 'package:flutter/material.dart';
 import '../Model/gm.dart' as model;
 import '../Widget/DescriptionScreenTopWidget.dart';
 import '../BLoC/GameBloc.dart';
 import '../Model/ScreenResponse.dart';
-import 'package:provider/provider.dart';
+
 import '../Widget/MiddleDescriptionScreen.dart';
+import '../BLoC/FavoriteBloc.dart';
 
 class DescriptionScreen extends StatefulWidget {
   static const routeNamed = '/DescriptionScreen';
@@ -23,6 +23,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     if (isInit) {
       foundedgame =
           ModalRoute.of(context).settings.arguments as model.GameModel;
+      favoriteBloc.getFavorite(foundedgame.id.toString());
       gameBloc.getScreenShots(foundedgame.guid);
     }
     isInit = false;

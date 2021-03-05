@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../BLoC/GameBloc.dart';
 import '../Widget/BottomHomeScreen.dart';
 import '../Widget/TopHomeScreen.dart';
-import 'package:provider/provider.dart';
-import '../Provider/FavoriteProviderdart.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeNamed = '/HomeScreen';
@@ -16,7 +14,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     super.initState();
-    Provider.of<FavoritesProvider>(context, listen: false).getFavorites();
     gameBloc.getGames();
   }
 

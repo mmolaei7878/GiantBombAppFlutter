@@ -1,41 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../Provider/FavoriteProviderdart.dart';
+import '../BLoC/FavoriteBloc.dart';
 
-class MiddleDescriptionScreen extends StatefulWidget {
+class MiddleDescriptionScreen extends StatelessWidget {
   final String description;
   final String deck;
   final String site;
   final int id;
-
   MiddleDescriptionScreen(
       {this.deck, this.description, this.site, @required this.id});
 
-  @override
-  _MiddleDescriptionScreenState createState() =>
-      _MiddleDescriptionScreenState();
-}
-
-class _MiddleDescriptionScreenState extends State<MiddleDescriptionScreen> {
   var isFavorite = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    var isInit = true;
-    if (isInit) {
-      final prove =
-          Provider.of<FavoritesProvider>(context, listen: false).favorites;
-      final singleItem = Provider.of<FavoritesProvider>(context)
-          .singleFavoriteStatus(widget.id.toString());
-      if (prove.contains(widget.id.toString())) {
-        isFavorite = true;
-      } else {
-        isFavorite = false;
-      }
-    }
-    isInit = false;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +24,7 @@ class _MiddleDescriptionScreenState extends State<MiddleDescriptionScreen> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    widget.deck,
+                    deck,
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ),
@@ -72,34 +46,37 @@ class _MiddleDescriptionScreenState extends State<MiddleDescriptionScreen> {
                         label: Text('Open WebSite'),
                       ),
                     ),
-                    Consumer<FavoritesProvider>(
-                      builder: (ctx, provider, ch) {
+                    StreamBuilder(
+                      stream: favoriteBloc.streamFav,
+                      builder: (ctx, AsyncSnapshot<String> snapShot) {
+                        if (snapShot.data.toString() == id.toString()) {
+                          isFavorite = true;
+                        }
                         return Container(
                           decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: isFavorite ? Colors.red : Colors.white),
+                              shape: BoxShape.circle, color: Colors.white),
                           width: 55,
                           height: 55,
                           child: IconButton(
-                            color: Color(0xff8764B8),
-                            iconSize: 32,
-                            icon: Icon(Icons.favorite),
-                            onPressed: isFavorite
-                                ? () {
-                                    setState(() {
+                              iconSize: 32,
+                              color:
+                                  isFavorite ? Colors.red : Color(0xff8764B8),
+                              icon: Icon(isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border),
+                              onPressed: isFavorite
+                                  ? () async {
                                       isFavorite = false;
-                                    });
-                                    provider.deleteFromFavorites(
-                                        widget.id.toString());
-                                  }
-                                : () {
-                                    setState(() {
+                                      await favoriteBloc.deleteFromFavorites(
+                                        id.toString(),
+                                      );
+                                    }
+                                  : () async {
                                       isFavorite = true;
-                                    });
-                                    provider
-                                        .addToFavorites(widget.id.toString());
-                                  },
-                          ),
+                                      await favoriteBloc.addToFavorite(
+                                        id.toString(),
+                                      );
+                                    }),
                         );
                       },
                     ),
