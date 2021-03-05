@@ -10,6 +10,8 @@ class Authentecation {
   String _userId;
   DateTime _expiresIn;
 
+  String get userId => _userId;
+
   BehaviorSubject<String> _tokenController = BehaviorSubject.seeded('null');
   Stream<String> get tokenStream => _tokenController.stream;
 
@@ -80,6 +82,7 @@ class Authentecation {
         ),
       ),
     );
+
     _tokenController.sink.add(_token);
 
     final prefs = await SharedPreferences.getInstance();

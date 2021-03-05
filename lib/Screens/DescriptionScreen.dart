@@ -1,8 +1,10 @@
+import 'package:GiantBombAppFlutter/Provider/FavoriteProviderdart.dart';
 import 'package:flutter/material.dart';
 import '../Model/gm.dart' as model;
 import '../Widget/DescriptionScreenTopWidget.dart';
 import '../BLoC/GameBloc.dart';
 import '../Model/ScreenResponse.dart';
+import 'package:provider/provider.dart';
 import '../Widget/MiddleDescriptionScreen.dart';
 
 class DescriptionScreen extends StatefulWidget {
@@ -51,6 +53,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                       foundedgame.number_of_user_reviews.toString(),
                 ),
                 MiddleDescriptionScreen(
+                  id: foundedgame.id,
                   deck: foundedgame.deck,
                   description: foundedgame.description,
                   site: foundedgame.site_detail_url,
