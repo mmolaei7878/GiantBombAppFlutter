@@ -9,32 +9,6 @@ class BottomHomeScreen extends StatefulWidget {
 }
 
 class _BottomHomeScreenState extends State<BottomHomeScreen> {
-  ScrollController controller;
-  @override
-  void initState() {
-    super.initState();
-    controller = ScrollController()..addListener(_scrollListener);
-  }
-
-  @override
-  void dispose() {
-    controller.removeListener(_scrollListener);
-    super.dispose();
-  }
-
-  void _scrollListener() async {
-    print(controller.position.extentAfter);
-    if (controller.position.extentAfter < 0.1) {
-      setState(() {
-        loading = true;
-      });
-      await gameBloc.getmore(30);
-      setState(() {
-        loading = false;
-      });
-    }
-  }
-
   var loading = false;
   @override
   Widget build(BuildContext context) {
@@ -78,7 +52,6 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
                       padding: const EdgeInsets.all(15.0),
                       child: GridView.builder(
                         key: ObjectKey(snapShot.data.gameList),
-                        controller: controller,
                         scrollDirection: Axis.horizontal,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: 3.3 / 2.3,
@@ -128,17 +101,6 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
               ),
             ),
           ),
-          if (loading)
-            Container(
-              alignment: Alignment.centerRight,
-              margin: EdgeInsets.only(right: 20, left: 150),
-              width: mqw,
-              height: 70,
-              child: CircularProgressIndicator(
-                backgroundColor: Color(0xff212121),
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
-            )
         ],
       ),
     );

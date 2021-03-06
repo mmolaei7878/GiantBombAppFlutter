@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'SearchWidget.dart';
 
 class TopHomeScreen extends StatelessWidget {
+  final Function handlerDrawer;
+  final bool isOpen;
+  TopHomeScreen(this.handlerDrawer, this.isOpen);
+
   @override
   Widget build(BuildContext context) {
     final mqh = MediaQuery.of(context).size.height;
@@ -14,46 +18,36 @@ class TopHomeScreen extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
           children: [
-            /*  SizedBox(
-              height: 150,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(horizontal: 18),
-                    child: IconButton(
-                        color: Theme.of(context).accentColor,
-                        iconSize: 37,
-                        icon: Icon(Icons.logout),
-                        onPressed: () {
-                          authentication.logOut();
-                        }),
-                  ),
-                  StreamBuilder(
-                      initialData: themeBloc.defaultValue,
-                      stream: themeBloc.colorStream,
-                      builder: (ctx, snapShot) {
-                        return Container(
-                          margin: EdgeInsets.symmetric(horizontal: 18),
-                          child: CupertinoSwitch(
-                            activeColor: Color(0xff332940),
-                            trackColor: Colors.white38,
-                            value: snapShot.data.index == 0 ? true : false,
-                            onChanged: (value) {
-                              if (!value) {
-                                themeBloc.setColor(0);
-                              } else {
-                                themeBloc.setColor(1);
-                              }
-                            },
-                          ),
-                        );
-                      })
-                ],
-              ),
-            ), */
             SizedBox(
               height: 150,
+              child: Stack(
+                children: [
+                  !isOpen
+                      ? Positioned(
+                          top: 50,
+                          left: 20,
+                          child: IconButton(
+                              iconSize: 42,
+                              icon: Icon(
+                                Icons.menu,
+                                color: Theme.of(context).accentColor,
+                              ),
+                              onPressed: handlerDrawer),
+                        )
+                      : Positioned(
+                          top: 15,
+                          left: 10,
+                          child: IconButton(
+                            iconSize: 42,
+                            color: Colors.white,
+                            icon: Icon(
+                              Icons.close,
+                            ),
+                            onPressed: handlerDrawer,
+                          ),
+                        ),
+                ],
+              ),
             ),
             Container(
               alignment: Alignment.centerLeft,

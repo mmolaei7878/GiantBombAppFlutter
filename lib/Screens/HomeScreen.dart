@@ -24,6 +24,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     gameBloc.getGames(30);
   }
 
+  changeDrawerPosition() {
+    if (!isOpen) {
+      setState(() {
+        xoffSet = 230;
+        yoffSet = 150;
+        angle = -0.2;
+        isOpen = true;
+      });
+    } else {
+      setState(
+        () {
+          xoffSet = 0;
+          yoffSet = 0;
+          angle = 0;
+          isOpen = false;
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
@@ -40,8 +60,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         child: Stack(
           children: [
             CustomScrollView(
+              physics: isOpen
+                  ? NeverScrollableScrollPhysics()
+                  : AlwaysScrollableScrollPhysics(),
               slivers: [
-                TopHomeScreen(),
+                TopHomeScreen(changeDrawerPosition, isOpen),
                 SliverList(
                   delegate: SliverChildListDelegate(
                     [
@@ -51,49 +74,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                 ),
               ],
             ),
-            !isOpen
-                ? Positioned(
-                    top: 50,
-                    left: 20,
-                    child: IconButton(
-                        iconSize: 42,
-                        icon: Icon(
-                          Icons.menu,
-                          color: Theme.of(context).accentColor,
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            xoffSet = 230;
-                            yoffSet = 150;
-                            angle = -0.2;
-                            isOpen = true;
-                          });
-                        }),
-                  )
-                : Positioned(
-                    top: 15,
-                    left: 10,
-                    child: IconButton(
-                      iconSize: 42,
-                      color: Colors.white,
-                      icon: Icon(
-                        Icons.close,
-                        color: Theme.of(context).accentColor,
-                      ),
-                      onPressed: () {
-                        if (isOpen == true) {
-                          setState(
-                            () {
-                              xoffSet = 0;
-                              yoffSet = 0;
-                              angle = 0;
-                              isOpen = false;
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ),
           ],
         ),
       ),
