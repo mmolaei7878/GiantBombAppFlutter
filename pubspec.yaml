@@ -26,6 +26,7 @@ dependencies:
   http: ^0.12.2
   rxdart: ^0.25.0
   json_annotation: ^3.1.1
+  matrix4_transform: ^1.1.7
   shared_preferences: ^0.5.12+4
 
 

@@ -4,6 +4,7 @@ import 'Screens/HomeScreen.dart';
 import 'Screens/AuthScreen.dart';
 import 'BLoC/Authenthication.dart';
 import 'BLoC/ThemeBloc.dart' as theme;
+import 'Screens/MainScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
                   authentication.tryAutoLogin();
                   return AuthScreen();
                 } else if (snapShot.data.length > 15) {
-                  return HomeScreen();
+                  return MainScreen();
                 } else {
                   authentication.tryAutoLogin();
                   return AuthScreen();

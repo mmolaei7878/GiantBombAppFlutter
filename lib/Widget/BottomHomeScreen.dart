@@ -3,7 +3,39 @@ import 'package:flutter/material.dart';
 import '../BLoC/GameBloc.dart';
 import '../Repository/GameResponse.dart';
 
-class BottomHomeScreen extends StatelessWidget {
+class BottomHomeScreen extends StatefulWidget {
+  @override
+  _BottomHomeScreenState createState() => _BottomHomeScreenState();
+}
+
+class _BottomHomeScreenState extends State<BottomHomeScreen> {
+  ScrollController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = ScrollController()..addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  void _scrollListener() async {
+    print(controller.position.extentAfter);
+    if (controller.position.extentAfter < 0.1) {
+      setState(() {
+        loading = true;
+      });
+      await gameBloc.getmore(30);
+      setState(() {
+        loading = false;
+      });
+    }
+  }
+
+  var loading = false;
   @override
   Widget build(BuildContext context) {
     final mqw = MediaQuery.of(context).size.width;
@@ -45,6 +77,8 @@ class BottomHomeScreen extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: GridView.builder(
+                        key: ObjectKey(snapShot.data.gameList),
+                        controller: controller,
                         scrollDirection: Axis.horizontal,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: 3.3 / 2.3,
@@ -63,13 +97,17 @@ class BottomHomeScreen extends StatelessWidget {
                                       arguments: snapShot.data.gameList[index],
                                     );
                                   },
-                                  child: Image.network(
-                                    snapShot.data.gameList[index].image
-                                        .screen_large_url,
-                                    height: 180,
-                                    width: 150,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: loading
+                                      ? Center(
+                                          child: CircularProgressIndicator(),
+                                        )
+                                      : Image.network(
+                                          snapShot.data.gameList[index].image
+                                              .screen_large_url,
+                                          height: 180,
+                                          width: 150,
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                               ),
                               SizedBox(
@@ -90,6 +128,17 @@ class BottomHomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          if (loading)
+            Container(
+              alignment: Alignment.centerRight,
+              margin: EdgeInsets.only(right: 20, left: 150),
+              width: mqw,
+              height: 70,
+              child: CircularProgressIndicator(
+                backgroundColor: Color(0xff212121),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            )
         ],
       ),
     );

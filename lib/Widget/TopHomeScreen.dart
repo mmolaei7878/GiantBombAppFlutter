@@ -1,21 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'SearchWidget.dart';
-import '../BLoC/Authenthication.dart';
-import '../BLoC/ThemeBloc.dart';
 
 class TopHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mqh = MediaQuery.of(context).size.height;
     return SliverAppBar(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       expandedHeight: mqh / 2,
       elevation: 50,
       backgroundColor: Theme.of(context).primaryColor,
       flexibleSpace: FlexibleSpaceBar(
         background: Column(
           children: [
-            SizedBox(
+            /*  SizedBox(
               height: 150,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,6 +51,9 @@ class TopHomeScreen extends StatelessWidget {
                       })
                 ],
               ),
+            ), */
+            SizedBox(
+              height: 150,
             ),
             Container(
               alignment: Alignment.centerLeft,

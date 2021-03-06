@@ -21,8 +21,13 @@ class GameBloc {
     _subjectScreenShot.close();
   }
 
-  getGames() async {
-    GameResponse response = await _repository.getGames();
+  getGames(int limit) async {
+    GameResponse response = await _repository.getGames(limit: 30);
+    _gameBehaviorSubject.sink.add(response);
+  }
+
+  getmore(int limit) async {
+    GameResponse response = await _repository.getmore(limit: 30);
     _gameBehaviorSubject.sink.add(response);
   }
 

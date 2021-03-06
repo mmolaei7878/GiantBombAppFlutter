@@ -8,7 +8,6 @@ class Authentecation {
   final fireBaseApiKey = 'AIzaSyAmPasN5Y_mDZsI4FhHidrTAFcO9xvpuZE';
   String _token;
   String _userId;
-  DateTime _expiresIn;
 
   String get userId => _userId;
 
@@ -30,13 +29,6 @@ class Authentecation {
 
     _token = jsonDecode(response.body)['idToken'];
     _userId = jsonDecode(response.body)['localId'];
-    _expiresIn = DateTime.now().add(
-      Duration(
-        seconds: int.parse(
-          jsonDecode(response.body)['expiresIn'],
-        ),
-      ),
-    );
 
     _tokenController.sink.add(_token);
 
@@ -46,7 +38,6 @@ class Authentecation {
       {
         'token': _token,
         'userId': _userId,
-        'expiryDate': _expiresIn.toIso8601String(),
       },
     );
 
@@ -56,7 +47,7 @@ class Authentecation {
   logOut() async {
     _token = null;
     _userId = null;
-    _expiresIn = null;
+
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();
     return _tokenController.value = null;
@@ -75,13 +66,6 @@ class Authentecation {
     print(json.decode(response.body));
     _token = jsonDecode(response.body)['idToken'];
     _userId = jsonDecode(response.body)['localId'];
-    _expiresIn = DateTime.now().add(
-      Duration(
-        seconds: int.parse(
-          jsonDecode(response.body)['expiresIn'],
-        ),
-      ),
-    );
 
     _tokenController.sink.add(_token);
 
@@ -91,7 +75,6 @@ class Authentecation {
       {
         'token': _token,
         'userId': _userId,
-        'expiryDate': _expiresIn.toIso8601String(),
       },
     );
 
@@ -105,13 +88,10 @@ class Authentecation {
     } else {
       final extractedUserData =
           json.decode(prefs.getString('userData')) as Map<String, Object>;
-      final expiryDate = DateTime.parse(extractedUserData['expiryDate']);
-      if (expiryDate.isBefore(DateTime.now())) {
-        return;
-      }
+
       _token = extractedUserData['token'];
       _userId = extractedUserData['userId'];
-      _expiresIn = expiryDate;
+
       _tokenController.sink.add(_token);
     }
   }
