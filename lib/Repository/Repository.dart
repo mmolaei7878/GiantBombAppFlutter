@@ -36,7 +36,7 @@ class Repository {
     print(jsonDecode(resposne.body));
   }
 
-  Future<GameResponse> getGames({int limit = 80}) async {
+  Future<GameResponse> getGames({int limit = 30}) async {
     final url =
         'https://www.giantbomb.com/api/games/?api_key=$apiKey&format=json&limit=$limit&filter=platforms:146&field_list=id,name,image,deck,date_last_updated,description,image_tags,guid,number_of_user_reviews,site_detail_url';
     final response = await http.get(url);
@@ -44,9 +44,9 @@ class Repository {
     return GameResponse.fromJson(result);
   }
 
-  Future<GameResponse> getmore({int limit = 80}) async {
+  Future<GameResponse> getmore({int limit = 30}) async {
     final url =
-        'https://www.giantbomb.com/api/games/?api_key=$apiKey&format=json&limit=$limit&field_list=id,name,image,deck,date_last_updated,description,image_tags,guid,number_of_user_reviews,site_detail_url';
+        'https://www.giantbomb.com/api/games/?api_key=$apiKey&format=json&limit=$limit&filter=platforms:146&field_list=id,name,image,deck,date_last_updated,description,image_tags,guid,number_of_user_reviews,site_detail_url';
     final response = await http.get(url);
     final result = jsonDecode(response.body)['results'];
     return GameResponse.fromJson(result);

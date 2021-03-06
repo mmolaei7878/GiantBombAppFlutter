@@ -16,18 +16,21 @@ class GameBloc {
 
   PublishSubject<ScreenResponse> get subjectScreenShot => _subjectScreenShot;
 
+  var loading = false;
   disposeGameStream() {
     _gameBehaviorSubject.close();
     _subjectScreenShot.close();
   }
 
   getGames(int limit) async {
-    GameResponse response = await _repository.getGames(limit: 30);
+    loading = true;
+    GameResponse response = await _repository.getGames(limit: limit);
     _gameBehaviorSubject.sink.add(response);
+    loading = false;
   }
 
   getmore(int limit) async {
-    GameResponse response = await _repository.getmore(limit: 30);
+    GameResponse response = await _repository.getmore(limit: limit);
     _gameBehaviorSubject.sink.add(response);
   }
 

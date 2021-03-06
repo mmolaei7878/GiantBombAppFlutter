@@ -9,7 +9,27 @@ class BottomHomeScreen extends StatefulWidget {
 }
 
 class _BottomHomeScreenState extends State<BottomHomeScreen> {
-  var loading = false;
+  final scrollController = ScrollController();
+  @override
+  void initState() {
+    scrollController.addListener(
+      () async {
+        if (scrollController.position.maxScrollExtent ==
+            scrollController.offset) {
+          setState(() {
+            hasMore = true;
+          });
+          await gameBloc.getmore(100);
+          setState(() {
+            hasMore = false;
+          });
+        }
+      },
+    );
+    super.initState();
+  }
+
+  var hasMore = false;
   @override
   Widget build(BuildContext context) {
     final mqw = MediaQuery.of(context).size.width;
@@ -49,9 +69,9 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
                     );
                   } else {
                     return Padding(
-                      padding: const EdgeInsets.all(15.0),
+                      padding: EdgeInsets.all(15.0),
                       child: GridView.builder(
-                        key: ObjectKey(snapShot.data.gameList),
+                        controller: scrollController,
                         scrollDirection: Axis.horizontal,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           childAspectRatio: 3.3 / 2.3,
@@ -70,7 +90,7 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
                                       arguments: snapShot.data.gameList[index],
                                     );
                                   },
-                                  child: loading
+                                  child: gameBloc.loading
                                       ? Center(
                                           child: CircularProgressIndicator(),
                                         )
@@ -101,6 +121,17 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
               ),
             ),
           ),
+          if (hasMore)
+            Container(
+              alignment: Alignment.centerRight,
+              margin: EdgeInsets.only(right: 20),
+              width: mqw,
+              height: 70,
+              child: CircularProgressIndicator(
+                backgroundColor: Color(0xff212121),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+              ),
+            )
         ],
       ),
     );
