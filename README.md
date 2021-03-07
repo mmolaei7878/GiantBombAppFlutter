@@ -2,6 +2,7 @@
 
 # Serializing JSON using code generation libraries
 
+# RX Dart
 ## Save & retrieve Favorites with FireBase RTDB
 ## Authentication using FireBase Rest APi
 ## Auto Login User With SharedPreferences
