@@ -64,13 +64,10 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                     (context, i) {
                       return Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: InkWell(
-                          onTap: () {},
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.network(
-                                snapShot.data.screenShots[i].screen_url),
-                          ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                              snapShot.data.screenShots[i].screen_url),
                         ),
                       );
                     },
