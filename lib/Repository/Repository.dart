@@ -4,7 +4,7 @@ import 'package:GiantBombAppFlutter/Repository/GameResponse.dart';
 import 'package:http/http.dart' as http;
 
 class Repository {
-  final apiKey = '1a9b8dd48ac9a77467c61db002f9d234fbdc8b87';
+  final apiKey = '<<Your Api Key>>';
 
   Future addToFavorites({String id, String userId}) async {
     final url =
