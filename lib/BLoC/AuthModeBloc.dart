@@ -5,29 +5,29 @@ import 'package:rxdart/rxdart.dart';
 enum AuthMode { Signup, Login, Nothing }
 
 class AuthModeBloc {
-  PublishSubject<AuthMode> _streamControllerAuthMode = PublishSubject();
+  PublishSubject<AuthMode> _streamControllerAuthModes = PublishSubject();
 
-  Stream<AuthMode> get authModelStream => _streamControllerAuthMode.stream;
+  Stream<AuthMode> get authModelStream => _streamControllerAuthModes.stream;
 
   AuthMode defaultAuthMode = AuthMode.Nothing;
 
   void changeAuthMode(int index) {
     switch (index) {
       case 0:
-        _streamControllerAuthMode.sink.add(AuthMode.Nothing);
+        _streamControllerAuthModes.sink.add(AuthMode.Nothing);
         break;
       case 1:
-        _streamControllerAuthMode.sink.add(AuthMode.Signup);
+        _streamControllerAuthModes.sink.add(AuthMode.Signup);
         break;
       case 2:
-        _streamControllerAuthMode.sink.add(AuthMode.Login);
+        _streamControllerAuthModes.sink.add(AuthMode.Login);
         break;
       default:
     }
   }
 
   dispose() {
-    _streamControllerAuthMode.close();
+    _streamControllerAuthModes.close();
   }
 }
 
