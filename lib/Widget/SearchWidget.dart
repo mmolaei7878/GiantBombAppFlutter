@@ -2,6 +2,7 @@ import 'package:GiantBombAppFlutter/Repository/GameResponse.dart';
 import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/SearchBloc.dart';
+import 'package:lottie/lottie.dart';
 
 class SearchWidget extends SearchDelegate {
   @override
@@ -90,8 +91,8 @@ class SearchWidget extends SearchDelegate {
         builder: (ctx, AsyncSnapshot<GameResponse> snapShot) {
           if (!snapShot.hasData) {
             return Center(
-              child: CircularProgressIndicator(),
-            );
+                child: Lottie.asset('lib/asset/cat.json',
+                    reverse: true, animate: true, width: 300, height: 300));
           } else {
             return Container(
               color: Theme.of(context).accentColor,
@@ -106,13 +107,14 @@ class SearchWidget extends SearchDelegate {
                           arguments: snapShot.data.gameList[i]);
                     },
                     leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                          snapShot.data.gameList[i].image.screen_large_url,
-                          width: 100,
-                          height: 100,
-                          fit: BoxFit.cover,
-                        )),
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        snapShot.data.gameList[i].image.screen_large_url,
+                        width: 100,
+                        height: 100,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     title: Text(
                       snapShot.data.gameList[i].name,
                       style: Theme.of(context).textTheme.bodyText1,
@@ -126,7 +128,12 @@ class SearchWidget extends SearchDelegate {
       );
     } else {
       return Center(
-        child: CircularProgressIndicator(),
+        child: Lottie.asset('lib/asset/cat.json',
+            alignment: Alignment.center,
+            reverse: true,
+            animate: true,
+            width: 300,
+            height: 300),
       );
     }
   }

@@ -17,13 +17,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   bool isPlaying = false;
   bool isOpen = false;
 
-  @override
-  void initState() {
-    super.initState();
-    super.initState();
-    gameBloc.getGames(30);
-  }
-
   changeDrawerPosition() {
     if (!isOpen) {
       setState(() {

@@ -1,5 +1,8 @@
 import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
+import 'package:GiantBombAppFlutter/Screens/Splash_Screen.dart';
+import 'package:GiantBombAppFlutter/Screens/WebViewShow.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/AuthScreen.dart';
 import 'BLoC/Authenthication.dart';
@@ -43,7 +46,7 @@ class MyApp extends StatelessWidget {
                   authentication.tryAutoLogin();
                   return AuthScreen();
                 } else if (snapShot.data.length > 15) {
-                  return MainScreen();
+                  return SplashScreen();
                 } else {
                   authentication.tryAutoLogin();
                   return AuthScreen();
@@ -53,7 +56,10 @@ class MyApp extends StatelessWidget {
             routes: {
               DescriptionScreen.routeNamed: (ctx) => DescriptionScreen(),
               AuthScreen.routeNamed: (ctx) => AuthScreen(),
-              HomeScreen.routeNamed: (ctx) => HomeScreen()
+              HomeScreen.routeNamed: (ctx) => HomeScreen(),
+              WebViewShow.routeNamed: (ctx) => WebViewShow(),
+              MainScreen.routeNamed: (ctx) => MainScreen(),
+              SplashScreen.routeNamed: (ctx) => SplashScreen(),
             },
           );
         });

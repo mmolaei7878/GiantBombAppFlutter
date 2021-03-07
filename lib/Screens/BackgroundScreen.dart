@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/Authenthication.dart';
 import '../BLoC/ThemeBloc.dart';
+import 'package:lottie/lottie.dart';
 
 class BackgroundScreen extends StatelessWidget {
   @override
@@ -14,7 +15,7 @@ class BackgroundScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
-            height: 150,
+            height: 550,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -59,7 +60,7 @@ class BackgroundScreen extends StatelessWidget {
                           ),
                         ),
                       );
-                    })
+                    }),
               ],
             ),
           ),

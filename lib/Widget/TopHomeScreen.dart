@@ -9,6 +9,7 @@ class TopHomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FocusScope.of(context).unfocus();
     final mqh = MediaQuery.of(context).size.height;
     return SliverAppBar(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

@@ -1,3 +1,4 @@
+import 'package:GiantBombAppFlutter/Screens/WebViewShow.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/FavoriteBloc.dart';
 
@@ -42,7 +43,11 @@ class MiddleDescriptionScreen extends StatelessWidget {
                         icon: Icon(Icons.web_outlined),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20)),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(
+                              WebViewShow.routeNamed,
+                              arguments: site);
+                        },
                         label: Text('Open WebSite'),
                       ),
                     ),
