@@ -1,6 +1,8 @@
 # Game App : Authentication, DarkMode, Favorites, Lottie
+
 # Serializing JSON using code generation libraries
-## Saving Favorites using FireBase Rtdb
+
+## Save & retrieve Favorites with FireBase RTDB
 ## Authentication using FireBase Rest APi
 ## Auto Login User With SharedPreferences
 ## Lottie Animation
