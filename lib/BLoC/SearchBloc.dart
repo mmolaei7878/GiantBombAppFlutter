@@ -19,5 +19,3 @@ class SearchBloc {
     _searchSubjectBehavior.sink.add(response);
   }
 }
-
-final searchBloc = SearchBloc();

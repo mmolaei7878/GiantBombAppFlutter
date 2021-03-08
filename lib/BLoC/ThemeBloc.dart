@@ -26,5 +26,3 @@ class ThemeBloc {
     _colorSubject.close();
   }
 }
-
-final themeBloc = ThemeBloc();

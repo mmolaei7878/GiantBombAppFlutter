@@ -1,15 +1,15 @@
 import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
-import 'package:GiantBombAppFlutter/Screens/Splash_Screen.dart';
 import 'package:GiantBombAppFlutter/Screens/WebViewShow.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/AuthScreen.dart';
 import 'BLoC/Authenthication.dart';
 import 'BLoC/ThemeBloc.dart' as theme;
 import 'Screens/MainScreen.dart';
+import 'Injecter.dart';
 
 void main() {
+  setup();
   runApp(MyApp());
 }
 
@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        initialData: theme.themeBloc.defaultValue,
-        stream: theme.themeBloc.colorStream,
+        initialData: locator.get<theme.ThemeBloc>().defaultValue,
+        stream: locator.get<theme.ThemeBloc>().colorStream,
         builder: (ctx, AsyncSnapshot<theme.ModeTheme> snapShot) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -40,15 +40,15 @@ class MyApp extends StatelessWidget {
                     ),
                   ),
             home: StreamBuilder(
-              stream: authentication.tokenStream,
+              stream: locator.get<Authentecation>().tokenStream,
               builder: (ctx, AsyncSnapshot<String> snapShot) {
                 if (snapShot.data == null) {
-                  authentication.tryAutoLogin();
+                  locator.get<Authentecation>().tryAutoLogin();
                   return AuthScreen();
                 } else if (snapShot.data.length > 15) {
-                  return SplashScreen();
+                  return MainScreen();
                 } else {
-                  authentication.tryAutoLogin();
+                  locator.get<Authentecation>().tryAutoLogin();
                   return AuthScreen();
                 }
               },
@@ -59,7 +59,6 @@ class MyApp extends StatelessWidget {
               HomeScreen.routeNamed: (ctx) => HomeScreen(),
               WebViewShow.routeNamed: (ctx) => WebViewShow(),
               MainScreen.routeNamed: (ctx) => MainScreen(),
-              SplashScreen.routeNamed: (ctx) => SplashScreen(),
             },
           );
         });

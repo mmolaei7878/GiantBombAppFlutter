@@ -3,7 +3,7 @@ import '../Model/gm.dart' as model;
 import '../Widget/DescriptionScreenTopWidget.dart';
 import '../BLoC/GameBloc.dart';
 import '../Model/ScreenResponse.dart';
-
+import '../Injecter.dart';
 import '../Widget/MiddleDescriptionScreen.dart';
 import '../BLoC/FavoriteBloc.dart';
 
@@ -24,7 +24,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
       foundedgame =
           ModalRoute.of(context).settings.arguments as model.GameModel;
       favoriteBloc.getFavorite(foundedgame.id.toString());
-      gameBloc.getScreenShots(foundedgame.guid);
+      locator.get<GameBloc>().getScreenShots(foundedgame.guid);
     }
     isInit = false;
   }
@@ -34,7 +34,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: StreamBuilder(
-        stream: gameBloc.subjectScreenShot,
+        stream: locator.get<GameBloc>().subjectScreenShot,
         builder: (ctx, AsyncSnapshot<ScreenResponse> snapShot) {
           if (!snapShot.hasData) {
             return Center(

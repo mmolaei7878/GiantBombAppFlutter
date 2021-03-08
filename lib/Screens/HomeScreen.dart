@@ -3,6 +3,7 @@ import '../BLoC/GameBloc.dart';
 import '../Widget/BottomHomeScreen.dart';
 import '../Widget/TopHomeScreen.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
+import '../Injecter.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeNamed = '/HomeScreen';
@@ -16,6 +17,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   double angle = 0;
   bool isPlaying = false;
   bool isOpen = false;
+  @override
+  void initState() {
+    super.initState();
+    locator.get<GameBloc>().getGames(30);
+  }
 
   changeDrawerPosition() {
     if (!isOpen) {

@@ -39,5 +39,3 @@ class GameBloc {
     _subjectScreenShot.sink.add(response);
   }
 }
-
-final gameBloc = GameBloc();

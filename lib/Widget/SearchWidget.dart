@@ -3,6 +3,7 @@ import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/SearchBloc.dart';
 import 'package:lottie/lottie.dart';
+import '../Injecter.dart';
 
 class SearchWidget extends SearchDelegate {
   @override
@@ -14,7 +15,7 @@ class SearchWidget extends SearchDelegate {
         child: IconButton(
           color: Color(0xff8764B8),
           onPressed: () {
-            searchBloc.searchGames(query);
+            locator.get<SearchBloc>().searchGames(query);
             showResults(context);
           },
           icon: Icon(Icons.search),
@@ -42,7 +43,7 @@ class SearchWidget extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     return StreamBuilder(
-      stream: searchBloc.searchSubject,
+      stream: locator.get<SearchBloc>().searchSubject,
       builder: (ctx, AsyncSnapshot<GameResponse> snapShot) {
         if (!snapShot.hasData) {
           return Center(
@@ -85,9 +86,9 @@ class SearchWidget extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     if (query.isNotEmpty) {
-      searchBloc.searchGames(query);
+      locator.get<SearchBloc>().searchGames(query);
       return StreamBuilder(
-        stream: searchBloc.searchSubject,
+        stream: locator.get<SearchBloc>().searchSubject,
         builder: (ctx, AsyncSnapshot<GameResponse> snapShot) {
           if (!snapShot.hasData) {
             return Center(

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/AuthModeBloc.dart';
 import '../BLoC/Authenthication.dart';
+import '../Injecter.dart';
 
 class AuthScreen extends StatefulWidget {
   static const routeNamed = '/AuthScreen';
@@ -42,8 +43,9 @@ class _AuthScreenState extends State<AuthScreen>
     });
     _loginFormKey.currentState.save();
     try {
-      await authentication.login(
-          email: _authData['email'], password: _authData["password"]);
+      await locator
+          .get<Authentecation>()
+          .login(email: _authData['email'], password: _authData["password"]);
     } catch (error) {
       return errorWidget();
     } finally {
@@ -62,8 +64,9 @@ class _AuthScreenState extends State<AuthScreen>
     });
     _signUpFormKey.currentState.save();
     try {
-      await authentication.signUp(
-          email: _authData['email'], password: _authData["password"]);
+      await locator
+          .get<Authentecation>()
+          .signUp(email: _authData['email'], password: _authData["password"]);
     } catch (error) {
       return errorWidget();
     } finally {
@@ -128,8 +131,8 @@ class _AuthScreenState extends State<AuthScreen>
             width: mqw,
             child: Container(
               child: StreamBuilder(
-                  initialData: authMode.defaultAuthMode,
-                  stream: authMode.authModelStream,
+                  initialData: locator.get<AuthModeBloc>().defaultAuthMode,
+                  stream: locator.get<AuthModeBloc>().authModelStream,
                   builder: (ctx, AsyncSnapshot<AuthMode> snapShot) {
                     switch (snapShot.data) {
                       case AuthMode.Nothing:
@@ -148,7 +151,9 @@ class _AuthScreenState extends State<AuthScreen>
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   onPressed: () {
-                                    authMode.changeAuthMode(1);
+                                    locator
+                                        .get<AuthModeBloc>()
+                                        .changeAuthMode(1);
                                   },
                                   child: Text(
                                     'Sign up',
@@ -166,7 +171,9 @@ class _AuthScreenState extends State<AuthScreen>
                                 margin: EdgeInsets.only(bottom: 45),
                                 child: FlatButton(
                                   onPressed: () {
-                                    authMode.changeAuthMode(2);
+                                    locator
+                                        .get<AuthModeBloc>()
+                                        .changeAuthMode(2);
                                   },
                                   child: Text(
                                     'Log in',
@@ -310,7 +317,9 @@ class _AuthScreenState extends State<AuthScreen>
                                   margin: EdgeInsets.only(bottom: 10, top: 10),
                                   child: FlatButton(
                                     onPressed: () {
-                                      authMode.changeAuthMode(2);
+                                      locator
+                                          .get<AuthModeBloc>()
+                                          .changeAuthMode(2);
                                     },
                                     child: Text(
                                       'Log In',
@@ -425,7 +434,9 @@ class _AuthScreenState extends State<AuthScreen>
                                   margin: EdgeInsets.only(bottom: 45),
                                   child: FlatButton(
                                     onPressed: () {
-                                      authMode.changeAuthMode(1);
+                                      locator
+                                          .get<AuthModeBloc>()
+                                          .changeAuthMode(1);
                                     },
                                     child: Text(
                                       'Sign up',

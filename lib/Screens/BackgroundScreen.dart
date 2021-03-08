@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/Authenthication.dart';
 import '../BLoC/ThemeBloc.dart';
-import 'package:lottie/lottie.dart';
+import '../Injecter.dart';
 
 class BackgroundScreen extends StatelessWidget {
   @override
@@ -31,13 +31,13 @@ class BackgroundScreen extends StatelessWidget {
                         iconSize: 37,
                         icon: Icon(Icons.logout),
                         onPressed: () {
-                          authentication.logOut();
+                          locator.get<Authentecation>().logOut();
                         }),
                   ),
                 ),
                 StreamBuilder(
-                    initialData: themeBloc.defaultValue,
-                    stream: themeBloc.colorStream,
+                    initialData: locator.get<ThemeBloc>().defaultValue,
+                    stream: locator.get<ThemeBloc>().colorStream,
                     builder: (ctx, snapShot) {
                       return Container(
                         margin: EdgeInsets.symmetric(horizontal: 18),
@@ -52,9 +52,9 @@ class BackgroundScreen extends StatelessWidget {
                             value: snapShot.data.index == 0 ? true : false,
                             onChanged: (value) {
                               if (!value) {
-                                themeBloc.setColor(0);
+                                locator.get<ThemeBloc>().setColor(0);
                               } else {
-                                themeBloc.setColor(1);
+                                locator.get<ThemeBloc>().setColor(1);
                               }
                             },
                           ),

@@ -96,5 +96,3 @@ class Authentecation {
     }
   }
 }
-
-final authentication = Authentecation();

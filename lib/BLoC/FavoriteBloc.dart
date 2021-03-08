@@ -1,11 +1,11 @@
 import 'package:rxdart/rxdart.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../Repository/Repository.dart';
 import '../BLoC/Authenthication.dart';
+import '../Injecter.dart';
 
 class FavoriteBloc {
-  final userId = authentication.userId;
+  final userId = locator.get<Authentecation>().userId;
   Repository _repository = Repository();
 
   getFavorite(String id) async {

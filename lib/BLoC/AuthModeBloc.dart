@@ -30,5 +30,3 @@ class AuthModeBloc {
     _streamControllerAuthMode.close();
   }
 }
-
-final authMode = AuthModeBloc();

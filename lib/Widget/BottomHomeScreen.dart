@@ -2,6 +2,7 @@ import 'package:GiantBombAppFlutter/Screens/DescriptionScreen.dart';
 import 'package:flutter/material.dart';
 import '../BLoC/GameBloc.dart';
 import '../Repository/GameResponse.dart';
+import '../Injecter.dart';
 
 class BottomHomeScreen extends StatefulWidget {
   @override
@@ -19,7 +20,7 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
           setState(() {
             hasMore = true;
           });
-          await gameBloc.getmore(100);
+          await locator.get<GameBloc>().getmore(100);
           setState(() {
             hasMore = false;
           });
@@ -54,7 +55,7 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
                 color: Theme.of(context).accentColor,
               ),
               child: StreamBuilder(
-                stream: gameBloc.subject,
+                stream: locator.get<GameBloc>().subject,
                 builder: (ctx, AsyncSnapshot<GameResponse> snapShot) {
                   if (!snapShot.hasData) {
                     return Container(
@@ -90,7 +91,7 @@ class _BottomHomeScreenState extends State<BottomHomeScreen> {
                                       arguments: snapShot.data.gameList[index],
                                     );
                                   },
-                                  child: gameBloc.loading
+                                  child: locator.get<GameBloc>().loading
                                       ? Center(
                                           child: CircularProgressIndicator(),
                                         )
