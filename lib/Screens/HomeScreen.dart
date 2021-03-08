@@ -3,6 +3,7 @@ import '../Widget/BottomHomeScreen.dart';
 import '../Widget/TopHomeScreen.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
 import '../Injecter.dart';
+import '../BLoC/GameBloc.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeNamed = '/HomeScreen';
