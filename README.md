@@ -1,8 +1,9 @@
-# Game App : Authentication, DarkMode, Favorites, Lottie
+# Game App : Authentication, DarkMode, Favorites, Lottie, Dependency Injection
 
 # Serializing JSON using code generation libraries
 
 # RX Dart
+# Dependency Injection using get_it
 ## Save & retrieve Favorites with FireBase RTDB
 ## Authentication using FireBase Rest APi
 ## Auto Login User With SharedPreferences
