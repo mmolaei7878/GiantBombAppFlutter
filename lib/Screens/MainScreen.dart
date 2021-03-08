@@ -1,6 +1,7 @@
 import 'BackgroundScreen.dart';
 import 'HomeScreen.dart';
 import 'package:flutter/material.dart';
+import '../BLoC/GameBloc.dart';
 
 class MainScreen extends StatefulWidget {
   static const routeNamed = '/MainScreen';
@@ -9,6 +10,12 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  @override
+  void initState() {
+    super.initState();
+    gameBloc.getGames(30);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
