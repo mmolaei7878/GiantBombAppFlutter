@@ -1,8 +1,9 @@
 # Game App
 # StateManagment : BLoC Pattern with RxDart
 # JsonDecoding : Serializing JSON using code generation libraries
-## Features : Authentication, DarkMode, Favorites, Lottie Animation
 # Dependency Injection : get_it
+## Features : Authentication, DarkMode, Favorites, Lottie Animation
+
 ### Save & retrieve Favorites with FireBase RTDB
 ### Authentication using FireBase Rest APi
 ### Auto Login User With SharedPreferences
